@@ -1,0 +1,40 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using CognitiveServices.Translator;
+using CognitiveServices.Translator.Translate;
+using Microsoft.Extensions.Logging;
+
+namespace Geexbox.Translator
+{
+    public class TranslateService
+    {
+        private readonly ITranslateClient _translateClient;
+        private readonly ILogger<TranslateService> _logger;
+
+        public TranslateService(ITranslateClient translateClient, ILogger<TranslateService> logger)
+        {
+            _translateClient = translateClient;
+            _logger = logger;
+        }
+
+        public IList<ResponseBody> Translate(string text)
+        {
+            var response = _translateClient.Translate(
+                new RequestContent(text),
+                new RequestParameter
+                {
+                    From = "ja", // Optional, will be auto-discovered
+                    To = new[] { "en" }, // You can translate to multiple language at once.
+                    IncludeAlignment = true, // Return what was translated by what. (see documentation)
+                });
+
+            // response = array of sentenses + array of target language
+            _logger.LogDebug(response.First().Translations.First().Text);
+
+            return response;
+        }
+    }
+}
