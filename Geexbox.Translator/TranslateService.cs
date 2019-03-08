@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using CognitiveServices.Translator;
 using CognitiveServices.Translator.Translate;
@@ -20,14 +21,17 @@ namespace Geexbox.Translator
             _logger = logger;
         }
 
-        public IList<ResponseBody> Translate(string text)
+        public IList<ResponseBody> Translate(string text, IDictionary<string, string> rawDictionary)
         {
+            Regex re = new Regex($@"\W({string.Join("|", rawDictionary.Keys)})\W", RegexOptions.Compiled);
+            string output = re.Replace(text, match => rawDictionary.TryGetValue(match.Groups[1].Value, out var result) ? $"<mstrans:dictionary translation=\"{result}\">{match.Value}</mstrans:dictionary>" : match.Value);
             var response = _translateClient.Translate(
-                new RequestContent(text),
+                new RequestContent(output),
                 new RequestParameter
                 {
-                    From = "ja", // Optional, will be auto-discovered
-                    To = new[] { "en" }, // You can translate to multiple language at once.
+                    From = "en", // Optional, will be auto-discovered
+                    TextType = TextType.Html,
+                    To = new[] { "zh" }, // You can translate to multiple language at once.
                     IncludeAlignment = true, // Return what was translated by what. (see documentation)
                 });
 

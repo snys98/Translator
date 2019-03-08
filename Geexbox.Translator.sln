@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28407.52
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geexbox.Translator", "Geexbox.Translator\Geexbox.Translator.csproj", "{1399ABD2-A96F-4183-83B6-0404050964CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Geexbox.Translator", "Geexbox.Translator\Geexbox.Translator.csproj", "{1399ABD2-A96F-4183-83B6-0404050964CB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microex.All", "Microex.All\Microex.All\Microex.All.csproj", "{B705A243-27AF-4EAB-AC1B-C9B98DF9FEBE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{1399ABD2-A96F-4183-83B6-0404050964CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1399ABD2-A96F-4183-83B6-0404050964CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1399ABD2-A96F-4183-83B6-0404050964CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B705A243-27AF-4EAB-AC1B-C9B98DF9FEBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B705A243-27AF-4EAB-AC1B-C9B98DF9FEBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B705A243-27AF-4EAB-AC1B-C9B98DF9FEBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B705A243-27AF-4EAB-AC1B-C9B98DF9FEBE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

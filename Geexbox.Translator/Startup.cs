@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using CognitiveServices.Translator.Configuration;
 using CognitiveServices.Translator.Extension;
 using Microsoft.AspNetCore.Builder;
@@ -15,6 +18,7 @@ namespace Geexbox.Translator
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            
         }
 
         public IConfiguration Configuration { get; }

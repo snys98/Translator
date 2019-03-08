@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using CognitiveServices.Translator;
 using CognitiveServices.Translator.Configuration;
 using CognitiveServices.Translator.Translate;
+using Microex.All.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Geexbox.Translator.Controllers
@@ -18,11 +19,23 @@ namespace Geexbox.Translator.Controllers
         {
             _translateService = translateService;
         }
-        [HttpGet("[action]")]
-        public string Translate(string raw)
+        [HttpPost("[action]")]
+        public string Translate([FromBody]TestRequest raw)
         {
-            var result = this._translateService.Translate(raw);
-            return result.to
+            var result = this._translateService.Translate(raw.Text, raw.Dictionary.ToDictionary(x => x.Key, x => x.Value));
+            return result.ToJson();
         }
+    }
+
+    public class TestRequest
+    {
+        public string Text { get; set; }
+        public List<DictItem> Dictionary { get; set; }
+    }
+
+    public class DictItem
+    {
+        public string Key { get; set; }
+        public string Value { get; set; }
     }
 }
