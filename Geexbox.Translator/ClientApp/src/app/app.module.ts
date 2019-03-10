@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MarkdownViewerComponent } from './markdown-viewer/markdown-viewer.component';
-import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
+import { MarkdownModule, MarkedOptions, MarkedRenderer } from 'ngx-markdown';
 import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -21,6 +21,7 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { CdkTreeModule } from '@angular/cdk/tree';
 // tslint:disable-next-line:max-line-length
 import { MatAutocompleteModule, MatBadgeModule, MatBottomSheetModule, MatButtonModule, MatButtonToggleModule, MatCardModule, MatCheckboxModule, MatChipsModule, MatDatepickerModule, MatDialogModule, MatDividerModule, MatExpansionModule, MatFormFieldModule, MatGridListModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule, MatNativeDateModule, MatPaginatorModule, MatProgressBarModule, MatProgressSpinnerModule, MatRadioModule, MatRippleModule, MatSelectModule, MatSidenavModule, MatSliderModule, MatSlideToggleModule, MatSnackBarModule, MatSortModule, MatStepperModule, MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule, MatTreeModule } from '@angular/material';
+import { Slugger } from 'marked';
 const MAT_MODULES =
   [// CDK
     A11yModule,
@@ -71,6 +72,30 @@ const MAT_MODULES =
     MatTooltipModule,
     MatTreeModule];
 
+
+export function markedOptionsFactory(): MarkedOptions {
+  const renderer = new MarkedRenderer();
+  const excape = (text: string) => {
+    return text.replace('class="translate"', '');
+  };
+  renderer.text = (text: string) => {
+    return `<text class="translate">${text}</text>`;
+  };
+  renderer.codespan = (code: string) => {
+    return `<code class="translate">${code}</code>`;
+  };
+  renderer.strong = (text: string) => {
+    return `<strong class="translate">${excape(text)}</strong>`;
+  };
+  renderer.del = (text: string) => {
+    return `<del class="translate">${excape(text)}</del>`;
+  };
+
+  return {
+    renderer: renderer,
+  };
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -88,10 +113,8 @@ const MAT_MODULES =
         loader: HttpClient,
         markedOptions: {
           provide: MarkedOptions,
-          useValue: {
-            sanitize: true
-          }
-        }
+          useValue: markedOptionsFactory()
+        },
       }
     ),
     ...MAT_MODULES

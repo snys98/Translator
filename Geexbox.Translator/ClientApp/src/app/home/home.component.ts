@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Headers } from '@angular/http';
 
 @Component({
   selector: 'app-home',
