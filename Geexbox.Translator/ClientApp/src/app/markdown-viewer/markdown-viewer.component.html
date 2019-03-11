@@ -1,5 +1,7 @@
 <mat-card>
   <mat-card-content>
-    <markdown #markdown src="https://raw.githubusercontent.com/snys98/Notes/master/git-principle.md"></markdown>
+<!-- <markdown #markdown (load)="onload($event)"  (error)="log($event)" src="https://raw.githubusercontent.com/snys98/CloudFolder/master/test.md"></markdown> -->
+<!-- <dynamic-html [content]="this.markdownHtml"></dynamic-html> -->
+<div *dynamicComponent="this.markdownHtml;context:this;"></div>
   </mat-card-content>
 </mat-card>

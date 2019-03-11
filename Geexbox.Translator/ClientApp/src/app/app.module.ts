@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,6 +22,9 @@ import { CdkTreeModule } from '@angular/cdk/tree';
 // tslint:disable-next-line:max-line-length
 import { MatAutocompleteModule, MatBadgeModule, MatBottomSheetModule, MatButtonModule, MatButtonToggleModule, MatCardModule, MatCheckboxModule, MatChipsModule, MatDatepickerModule, MatDialogModule, MatDividerModule, MatExpansionModule, MatFormFieldModule, MatGridListModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule, MatNativeDateModule, MatPaginatorModule, MatProgressBarModule, MatProgressSpinnerModule, MatRadioModule, MatRippleModule, MatSelectModule, MatSidenavModule, MatSliderModule, MatSlideToggleModule, MatSnackBarModule, MatSortModule, MatStepperModule, MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule, MatTreeModule } from '@angular/material';
 import { Slugger } from 'marked';
+import { DynamicHTMLModule, DynamicComponentModule } from 'ng-dynamic';
+
+
 const MAT_MODULES =
   [// CDK
     A11yModule,
@@ -71,32 +74,10 @@ const MAT_MODULES =
     MatToolbarModule,
     MatTooltipModule,
     MatTreeModule];
-
-
-export function markedOptionsFactory(): MarkedOptions {
-  const renderer = new MarkedRenderer();
-  const excape = (text: string) => {
-    return text.replace('class="translate"', '');
-  };
-  renderer.text = (text: string) => {
-    return `<text class="translate">${text}</text>`;
-  };
-  renderer.codespan = (code: string) => {
-    return `<code class="translate">${code}</code>`;
-  };
-  renderer.strong = (text: string) => {
-    return `<strong class="translate">${excape(text)}</strong>`;
-  };
-  renderer.del = (text: string) => {
-    return `<del class="translate">${excape(text)}</del>`;
-  };
-
-  return {
-    renderer: renderer,
-  };
-}
-
 @NgModule({
+  schemas: [
+    NO_ERRORS_SCHEMA
+  ],
   declarations: [
     AppComponent,
     HomeComponent,
@@ -108,12 +89,19 @@ export function markedOptionsFactory(): MarkedOptions {
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    DynamicHTMLModule.forRoot({
+      components: [
+      ]
+    }),
+    DynamicComponentModule.forRoot({
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: [...MAT_MODULES]
+    }),
     MarkdownModule.forRoot(
       {
         loader: HttpClient,
         markedOptions: {
           provide: MarkedOptions,
-          useValue: markedOptionsFactory()
         },
       }
     ),
