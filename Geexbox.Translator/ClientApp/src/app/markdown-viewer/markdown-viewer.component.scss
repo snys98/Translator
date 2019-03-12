@@ -1,12 +1,40 @@
-.translate {
-  position: relative;
+:host {
+  ::ng-deep {
+    .raw:hover:before {
+      background-color: rgba(227, 227, 227, 0.999);
+      border: 1px solid rgba(46, 46, 46, 0.999);
+      color: rgba(46, 46, 46, 0.999);
+      content: attr(translation);
+      font-weight: 400;
+      font-size: 1rem;
+      padding: 7px 8px;
+      position: absolute;
+      transform: translateY(-100%);
+
+    }
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
+
+    .translate {
+      position: relative;
+    }
+
+    .trans-tooltip {
+      position: absolute;
+      font-size: 1rem;
+      background: aliceblue;
+      width: 100vw;
+      height: 100%;
+      transform: translateY(-100%);
+    }
+  }
+
+
+  img {
+    display: block
+  }
 }
 
-.trans-tooltip {
-  position: absolute;
-  height: 40px;
-}
-
-img {
-  display: block
-}
+/*# sourceURL=markdown-viewer.component.scss */

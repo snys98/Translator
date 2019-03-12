@@ -29,9 +29,9 @@ namespace Geexbox.Translator
                 new RequestContent(output),
                 new RequestParameter
                 {
-                    From = "zh", // Optional, will be auto-discovered
+                    From = "en", // Optional, will be auto-discovered
                     TextType = TextType.Html,
-                    To = new[] { "en" }, // You can translate to multiple language at once.
+                    To = new[] { "zh" }, // You can translate to multiple language at once.
                     IncludeAlignment = true, // Return what was translated by what. (see documentation)
                 });
 

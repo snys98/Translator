@@ -1,7 +1,13 @@
 <mat-card>
   <mat-card-content>
-<!-- <markdown #markdown (load)="onload($event)"  (error)="log($event)" src="https://raw.githubusercontent.com/snys98/CloudFolder/master/test.md"></markdown> -->
-<!-- <dynamic-html [content]="this.markdownHtml"></dynamic-html> -->
-<div *dynamicComponent="this.markdownHtml;context:this;"></div>
+    <!-- <markdown #markdown (load)="onload($event)"  (error)="log($event)" src="https://raw.githubusercontent.com/snys98/CloudFolder/master/test.md"></markdown> -->
+    <!-- <dynamic-html [content]="this.markdownHtml"></dynamic-html> -->
+    <!-- <div *dynamicComponent="this.markdownHtml;context:this;"></div> -->
+<div><input style="width: 100%" type="text"
+         placeholder="markdown文件的url"
+         [ngModel]="this.src"
+(ngModelChange)="this.src=$event"></div>
+    <div id="placeHolder"></div>
+    <!-- <div [innerHTML]="this.markdownHtml"></div> -->
   </mat-card-content>
 </mat-card>
