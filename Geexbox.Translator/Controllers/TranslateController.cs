@@ -7,6 +7,7 @@ using CognitiveServices.Translator.Configuration;
 using CognitiveServices.Translator.Translate;
 using Microex.All.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using MoreLinq.Extensions;
 
 namespace Geexbox.Translator.Controllers
 {
@@ -22,7 +23,7 @@ namespace Geexbox.Translator.Controllers
         [HttpPost("[action]")]
         public string Translate([FromBody]TestRequest raw)
         {
-            var result = this._translateService.Translate(raw.Text, raw.Dictionary.ToDictionary(x => x.Key, x => x.Value));
+            var result = this._translateService.Translate(raw.Text, raw.Dictionary.DistinctBy(x=>x.Key).ToDictionary(x => x.Key, x => x.Value));
             return result.ToJson();
         }
     }

@@ -33,10 +33,10 @@ export class MarkdownViewerComponent {
   }
 
   markdownHtml: string | SafeHtml;
-  translate = async (text: string) => {
+  translate = async (text: string, specialTranslates: { key: string, value: string }[]) => {
     const result = await this.http.post('/api/translate/translate', {
       text: text,
-      dictionary: []
+      dictionary: specialTranslates
     }, {
         headers: new HttpHeaders(
           {
@@ -86,7 +86,9 @@ export class MarkdownViewerComponent {
           , ...Array.from(tempDiv.getElementsByTagName('p'))
         ] as Array<HTMLElement>; */
     for (const item of translateBlocks) {
-      let text = await this.translate(item.innerText);
+      let text = await this.translate(` ${item.innerText} `, Array.from(item.querySelectorAll('code')).map(x => {
+        return { key: x.innerText, value: x.innerText };
+      }));
       item.setAttribute('translation', text);
       item.classList.add('raw');
     }

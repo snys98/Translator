@@ -10,7 +10,9 @@
       padding: 7px 8px;
       position: absolute;
       transform: translateY(-100%);
-
+    }
+    .raw:hover{
+      background: azure;
     }
 
     ::-webkit-scrollbar {
