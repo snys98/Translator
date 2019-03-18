@@ -33,8 +33,10 @@ namespace Geexbox.Translator
             {
                 configuration.RootPath = "ClientApp/dist";
             });
-            services.AddCognitiveServicesTranslator(Configuration); // where configuration is IConfiguration
-            services.AddScoped<TranslateService>(); // Where ITransla
+            // 从根据配置，注入翻译 API 的 Client，具体配置可以查看appsettings.json
+            services.AddCognitiveServicesTranslator(Configuration); 
+            // 注入定制化后的 TranslateService
+            services.AddScoped<TranslateService>(); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

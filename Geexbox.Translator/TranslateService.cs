@@ -23,18 +23,25 @@ namespace Geexbox.Translator
 
         public IList<ResponseBody> Translate(string text, IDictionary<string, string> rawDictionary)
         {
+            // 这个正则用于从输入文本中查找出所有的豁免内容，豁免内容不参与翻译
             Regex re = new Regex($@"\W({string.Join("|", rawDictionary.Keys)})\W", RegexOptions.Compiled);
-            string output = re.Replace(text, match => rawDictionary.TryGetValue(match.Groups[1].Value, out var result) ? $"<mstrans:dictionary translation=\"{result}\">{match.Value}</mstrans:dictionary>" : match.Value);
+            // 针对需要豁免的内容，将“内容”替换为“<mstrans:dictionary translation="期望结果">内容</mstrans:dictionary>”
+            // mstrans:dictionary标签内的内容不参与翻译
+            string output = re.Replace(text, 
+                match => rawDictionary.TryGetValue(match.Groups[1].Value, out var result) 
+                    ? $"<mstrans:dictionary translation=\"{result}\">{match.Value}</mstrans:dictionary>" 
+                    : match.Value);
+            // 调用翻译 API 的客户端，获取结果
             var response = _translateClient.Translate(
                 new RequestContent(output),
                 new RequestParameter
                 {
-                    From = "en", // Optional, will be auto-discovered
-                    TextType = TextType.Plain,
-                    To = new[] { "zh" }, // You can translate to multiple language at once.
+                    From = "en", // 源语言
+                    TextType = TextType.Plain,// 文本内容类型，支持纯文本和html
+                    To = new[] { "zh" }, // 目标语言，可以一次返回多种目标语言.
                 });
 
-            // response = array of sentenses + array of target language
+            // 这里会输出第一种目标语言的翻译结果
             _logger.LogDebug(response.First().Translations.First().Text);
 
             return response;

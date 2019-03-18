@@ -30,10 +30,19 @@ namespace Geexbox.Translator.Controllers
 
     public class TestRequest
     {
+        /// <summary>
+        /// 需要翻译的文本
+        /// </summary>
         public string Text { get; set; }
+        /// <summary>
+        /// 翻译映射集合，该集合内的key会被翻译成Value
+        /// </summary>
         public List<DictItem> Dictionary { get; set; }
     }
 
+    /// <summary>
+    /// 翻译映射对象
+    /// </summary>
     public class DictItem
     {
         public string Key { get; set; }
