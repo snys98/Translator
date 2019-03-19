@@ -33,9 +33,9 @@ namespace Geexbox.Translator
             {
                 configuration.RootPath = "ClientApp/dist";
             });
-            // ´Ó¸ù¾İÅäÖÃ£¬×¢Èë·­Òë API µÄ Client£¬¾ßÌåÅäÖÃ¿ÉÒÔ²é¿´appsettings.json
+            // ä»æ ¹æ®é…ç½®ï¼Œæ³¨å…¥ç¿»è¯‘ API çš„ Clientï¼Œå…·ä½“é…ç½®å¯ä»¥æŸ¥çœ‹appsettings.json
             services.AddCognitiveServicesTranslator(Configuration); 
-            // ×¢Èë¶¨ÖÆ»¯ºóµÄ TranslateService
+            // æ³¨å…¥å®šåˆ¶åŒ–åçš„ TranslateService
             services.AddScoped<TranslateService>(); 
         }
 
@@ -53,7 +53,6 @@ namespace Geexbox.Translator
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
