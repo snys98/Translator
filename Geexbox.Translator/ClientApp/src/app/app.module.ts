@@ -89,14 +89,6 @@ const MAT_MODULES =
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    DynamicHTMLModule.forRoot({
-      components: [
-      ]
-    }),
-    DynamicComponentModule.forRoot({
-      schemas: [NO_ERRORS_SCHEMA],
-      imports: [...MAT_MODULES]
-    }),
     MarkdownModule.forRoot(
       {
         loader: HttpClient,
